@@ -1,0 +1,17 @@
+.table-container {
+    display: flex;
+    justify-content: left;
+    align-items: left;
+    
+  }
+  
+  .table-container table {
+    width: 200px;
+    margin: 0 auto;
+  }
+  
+  .table-container th,
+  .table-container td {
+    text-align: center;
+  }
+  
