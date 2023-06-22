@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Table from 'react-bootstrap/Table';
-import './css/Tabla.css'
+import './css/Tabla.css';
+
 const ProductTable = () => {
   const [products, setProducts] = useState([]);
 
@@ -12,9 +13,12 @@ const ProductTable = () => {
   }, []);
 
   return (
-    <div className="table-container  mt-4">
-    
-      <Table striped bordered hover variant="dark mt-4">
+    <div className="table-container">
+ 
+    <div className="table-content">
+    <h1 className="text-white">Productos</h1>
+      <input type="text" placeholder="Buscar producto" /> 
+      <Table striped bordered hover variant="dark">
         <thead>
           <tr>
             <th>ID</th>
@@ -27,7 +31,7 @@ const ProductTable = () => {
           </tr>
         </thead>
         <tbody>
-          {products.map(product => (
+          {products.map((product) => (
             <tr key={product.id}>
               <td>{product.id}</td>
               <td>{product.nombre}</td>
@@ -41,6 +45,8 @@ const ProductTable = () => {
         </tbody>
       </Table>
     </div>
+  </div>
+  
   );
 };
 

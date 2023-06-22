@@ -6,7 +6,7 @@
   }
   
   .table-container table {
-    width: 200px;
+    width: 300px;
     margin: 0 auto;
   }
   
@@ -14,4 +14,40 @@
   .table-container td {
     text-align: center;
   }
-  
+  .table-container {
+  background-color: #000000;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.table-header input[type="text"] {
+  padding: 6px;
+  width: 200px;
+  border-radius: 4px;
+}
+
+.table-content {
+  margin-top: 10px;
+  width: 600px;
+}
+
+.table-content table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.header h1 {
+  color: #ffffff;
+}
+
+.header input[type="text"] {
+  padding: 6px;
+  width: 200px;
+  border-radius: 4px;
+}
