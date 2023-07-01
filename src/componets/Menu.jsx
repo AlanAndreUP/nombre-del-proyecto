@@ -12,7 +12,7 @@ const Menu = () => {
         <div className="col-md-1 col-sm-2 pl-0">
           <Nav />
         </div>
-        <div className="col-md-5 col-sm-4 mr-3">
+        <div className="col-md-5 col-sm-4 mr-3 mt-2">
           <ProductTable />
         </div>
         <div className="col-md-5 col-sm-5 m-3">

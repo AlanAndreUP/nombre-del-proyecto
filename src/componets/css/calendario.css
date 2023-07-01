@@ -1,0 +1,14 @@
+.calendar-container {
+    background-color: white;
+  }
+  
+  .calendar-title {
+    text-align: center;
+    border-bottom: 1px solid black;
+    font-weight: bold;
+  }
+  
+  .custom-calendar {
+    font-weight: bold;
+  }
+  

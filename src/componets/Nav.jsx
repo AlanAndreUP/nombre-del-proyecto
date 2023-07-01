@@ -5,6 +5,8 @@ import ELlipse from '../img/Ellipse 1.svg'
 import Vector from '../img/Vector.svg'
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+
 const Navbar = () => {
   const { userId } = useParams(); // Obtener el parámetro userId de la URL
   const [userName, setUserName] = useState('');
@@ -48,21 +50,22 @@ const Navbar = () => {
         <div className='row aling-items-end' style={{ width: '4rem' }}>
           <img src={Flecha} alt="Button 1" className="navbar-button col-2 col-md-2 col-sm-1" />
           {expanded && (
-            <button className='col-4 col-md-4 col-sm-3 navbar-button'>Hola3</button>
+            <button className='col-4 col-md-4 col-sm-3 navbar-button btn btn-light'>Hola3</button>
           )}
         </div>
-        <div className='row aling-items-end'>
+        <div className='row align-items-end'>
           <img src={ELlipse} alt="Button 2" className="navbar-button col-2 col-md-2 col-sm-1" />
-          {
-            expanded && (
-              <button className='col-4 col-md-4 col-sm-3 navbar-button'>Hola3</button>
-            )
-          }
+          {expanded && (
+            <Link to="/ventas" className='col-4 col-md-4 col-sm-3 navbar-button btn btn-light'>
+              Ventas
+            </Link>
+          )}
         </div>
+
         <div className='row align-items-end"'>
           <img src={Vector} alt="Button 3" className="navbar-button col-2 col-md-2 col-sm-1" />{
             expanded && (
-              <button className='col-4 col-md-4 col-sm-3 navbar-button'>Hola3</button>
+              <button className='col-4 col-md-4 col-sm-3 navbar-button btn btn-light'>Hola3</button>
             )
           }
         </div>
@@ -72,7 +75,7 @@ const Navbar = () => {
         {expanded && (
           <div className="user-details">
             <span className="user-name">{userName}</span>
-            <button className="user-button">Salir</button>
+            <button className="user-button btn btn-light">Salir</button>
           </div>
         )}
       </div>

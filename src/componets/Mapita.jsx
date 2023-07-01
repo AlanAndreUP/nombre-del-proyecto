@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Table from 'react-bootstrap/Table';
 import './css/Tabla.css';
-
+import { PDFDocument, rgb } from 'pdf-lib';
+import Generar from './Generar';
 const ProductTable = () => {
   const [products, setProducts] = useState([]);
 
@@ -12,41 +13,35 @@ const ProductTable = () => {
       .catch(error => console.log(error));
   }, []);
 
+
   return (
     <div className="table-container">
- 
-    <div className="table-content">
-    <h1 className="text-white">Productos</h1>
-      <input type="text" placeholder="Buscar producto" /> 
-      <Table striped bordered hover variant="dark">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Tamaño</th>
-            <th>Medidas</th>
-            <th>Material</th>
-            <th>Precio</th>
-            <th>Descripción</th>
-          </tr>
-        </thead>
-        <tbody>
-          {products.map((product) => (
-            <tr key={product.id}>
-              <td>{product.id}</td>
-              <td>{product.nombre}</td>
-              <td>{product.tamaño}</td>
-              <td>{product.medidas}</td>
-              <td>{product.material}</td>
-              <td>{product.precio}</td>
-              <td>{product.descripcion}</td>
+      <div className="table-content">
+        <h1 className="text-white">Productos</h1>
+       <Generar></Generar>
+        <input type="text" placeholder="Buscar producto" />
+        <Table striped bordered hover variant="dark">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Precio</th>
+              <th>Descripción</th>
             </tr>
-          ))}
-        </tbody>
-      </Table>
+          </thead>
+          <tbody>
+            {products.map((product) => (
+              <tr key={product.id}>
+                <td>{product.id}</td>
+                <td>{product.nombre}</td>
+                <td>{product.precio}</td>
+                <td>{product.descripcion}</td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </div>
     </div>
-  </div>
-  
   );
 };
 
