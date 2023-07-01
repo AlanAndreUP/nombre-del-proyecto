@@ -49,7 +49,7 @@ const Login = () => {
   };
 
   if (loggedIn) {
-    return <Navigate to={`/Menu/${id}`} replace />;
+    return <Navigate to={`/Apertura/${id}`} replace />;
   }
 
   return (

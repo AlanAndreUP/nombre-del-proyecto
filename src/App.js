@@ -7,6 +7,7 @@ import Menu from './componets/Menu';
 import Ventas from './componets/ventas/indexVentas';
 import Prueba from './componets/Prueba'
 import Login from './componets/empleado/index';
+import Apertura from './componets/empleado/AperturaCaja';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/Menu/:userId" element={<Menu />} />
         <Route path="/Ventas" element={<Ventas />} />
         <Route path="/LoginEmpleado" element={<Login/>}/>
+        <Route path="/Apertura/:userId" element={<Apertura/>}/>
       </Routes>
     </Router>
   );
