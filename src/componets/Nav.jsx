@@ -50,8 +50,9 @@ const Navbar = () => {
         <div className='row aling-items-end' style={{ width: '4rem' }}>
           <img src={Flecha} alt="Button 1" className="navbar-button col-2 col-md-2 col-sm-1" />
           {expanded && (
-            <button className='col-4 col-md-4 col-sm-3 navbar-button btn btn-light'>Hola3</button>
-          )}
+            <Link to="/Tablas" className='col-3 col-md-3 col-sm-3 navbar-button btn btn-light'>
+            Tablas
+          </Link>   )}
         </div>
         <div className='row align-items-end'>
           <img src={ELlipse} alt="Button 2" className="navbar-button col-2 col-md-2 col-sm-1" />
@@ -65,8 +66,9 @@ const Navbar = () => {
         <div className='row align-items-end"'>
           <img src={Vector} alt="Button 3" className="navbar-button col-2 col-md-2 col-sm-1" />{
             expanded && (
-              <button className='col-4 col-md-4 col-sm-3 navbar-button btn btn-light'>Hola3</button>
-            )
+              <Link to="/Tablas" className='col-4 col-md-4 col-sm-3 navbar-button btn btn-light'>
+              Tablas
+            </Link>     )
           }
         </div>
       </div>

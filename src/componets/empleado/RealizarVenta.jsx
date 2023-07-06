@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import Swal from 'sweetalert2';
 import Nav from './Navbar';
+
 const MiComponente = () => {
   const [productos, setProductos] = useState([]);
   const [nota, setNota] = useState([]);
@@ -63,16 +65,61 @@ const MiComponente = () => {
   };
 
   const handleRealizarVentaClick = () => {
-    // Lógica para realizar la venta
-    // ...
+    if (nota.length === 0) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'La nota está vacía. No se puede realizar la venta.',
+      });
+      return;
+    }
+
+    const fechaVenta = new Date();
+
+    const ventaData = {
+      id: 0,
+      fechaVenta: fechaVenta,
+      pagoTotal: total,
+      sucursal: 0,
+      idEmpleado: 0,
+      siFactura: conFactura ? 1 : 0,
+      imgNota: "",
+      articulosVendidos: JSON.stringify(nota.map(item => ({
+        id: item.id,
+        cantidad: item.cantidad
+      })))
+    };
+
+    fetch('http://alansanchez12-001-site1.htempurl.com/api/Ventas1/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(ventaData)
+    })
+      .then(response => response.json())
+      .then(data => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Venta realizada exitosamente',
+          text: JSON.stringify(data)
+        });
+        // Aquí puedes agregar cualquier lógica adicional que necesites después de realizar la venta correctamente
+      })
+      .catch(error => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error al realizar la venta',
+          text: error.message
+        });
+      });
   };
 
   return (
     <div className="container-fluid contsfondo">
       <div className="row">
-      <div className="col-md-1 col-sm-2 pl-0">
+        <div className="col-md-1 col-sm-2 pl-0">
           <Nav />
-
         </div>
         <div className="col-md-5">
           <h2 className="text-white">Productos</h2>

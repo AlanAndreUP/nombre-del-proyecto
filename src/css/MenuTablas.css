@@ -1,0 +1,6 @@
+.menu-tablas-container {
+  background-color: #212529;
+  height: 100vh; /* La altura del elemento será igual al 100% del viewport */
+  width: 100%; /* La anchura del elemento se ajustará automáticamente al 100% del contenedor padre */
+} 
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');

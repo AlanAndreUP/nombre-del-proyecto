@@ -10,6 +10,12 @@ import Login from './componets/empleado/index';
 import Apertura from './componets/empleado/AperturaCaja';
 import MenuEmpleado from './componets/empleado/MenuEmpleado';
 import Realizar from './componets/empleado/RealizarVenta';
+import Tablas from './componets/MenuTablas';
+import Empleado from './componets/Empleados';
+import Productos from './componets/Productoes';
+import Categorias from './componets/Secciones';
+import Tiendas from './componets/Sucursales';
+import Bodegas from './componets/Bodegas';
 
 function App() {
   return (
@@ -18,6 +24,12 @@ function App() {
         <Route path="/" element={<Prueba />} />
         <Route path="/Menu/:userId" element={<Menu />} />
         <Route path="/Ventas" element={<Ventas />} />
+        <Route path="/Tablas" element={<Tablas />} />
+        <Route path="/Empleado" element={<Empleado />} />
+        <Route path="/Productos" element={<Productos />} />
+        <Route path="/Categorias" element={<Categorias />} />
+        <Route path="/Tiendas" element={<Tiendas />} />
+        <Route path="/Bodegas" element={<Bodegas />} />
         <Route path="/LoginEmpleado" element={<Login/>}/>
         <Route path="/Apertura/:userId" element={<Apertura/>}/>
         <Route path="/MenuEmpleado" element={<MenuEmpleado/>}/>

@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 const Navbar = () => {
   const { userId } = useParams(); // Obtener el parámetro userId de la URL
   const [userName, setUserName] = useState('');
-  console.log(userId);
+  //console.log(userId);
   useEffect(() => {
     const fetchUserName = async () => {
       try {

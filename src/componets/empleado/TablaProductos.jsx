@@ -12,12 +12,14 @@ const ProductTable = () => {
       .catch(error => console.log(error));
   }, []);
 
+  
+
 
   return (
     <div className="table-container">
       <div className="table-content">
         <h1 className="text-white">Productos</h1>
-    
+
         <input type="text" placeholder="Buscar producto" />
         <Table striped bordered hover variant="dark">
           <thead>
@@ -38,6 +40,7 @@ const ProductTable = () => {
               </tr>
             ))}
           </tbody>
+
         </Table>
       </div>
     </div>
