@@ -8,6 +8,8 @@ import Ventas from './componets/ventas/indexVentas';
 import Prueba from './componets/Prueba'
 import Login from './componets/empleado/index';
 import Apertura from './componets/empleado/AperturaCaja';
+import MenuEmpleado from './componets/empleado/MenuEmpleado';
+import Realizar from './componets/empleado/RealizarVenta';
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
         <Route path="/Ventas" element={<Ventas />} />
         <Route path="/LoginEmpleado" element={<Login/>}/>
         <Route path="/Apertura/:userId" element={<Apertura/>}/>
+        <Route path="/MenuEmpleado" element={<MenuEmpleado/>}/>
+        <Route path="/Realizar" element={<Realizar/>}/>
       </Routes>
     </Router>
   );

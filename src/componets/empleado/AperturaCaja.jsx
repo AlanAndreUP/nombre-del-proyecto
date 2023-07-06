@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Form, Button, Row, Col } from 'react-bootstrap';
+import Swal from 'sweetalert2';
+import { Navigate } from 'react-router-dom';
 
 const Apertura = () => {
   const [fechaCreacion, setFechaCreacion] = useState('');
@@ -20,8 +22,8 @@ const Apertura = () => {
   const [mon5OC, setMon5OC] = useState('');
   const [montoTotal, setMontoTotal] = useState('');
   const { userId } = useParams();
-  const [userName, setUserName] = useState('');
-
+  const [idApertura, setUserName] = useState('');
+  const [OPEN, SetOpen] = useState(false);
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -32,7 +34,7 @@ const Apertura = () => {
           const userName = userData.nombre;
           setIdEmpleado(userId);
           setTurno(userData.turno);
-          setUserName(userName);
+     
         } else {
           console.log('Error al obtener los datos del usuario');
         }
@@ -107,7 +109,7 @@ const Apertura = () => {
      fechadeCreacion: fechaCreacion,
       idEmpleado,
       idSucursal,
-      turno,
+      turno:1,
       cantB1000,
       cantB500,
       cantB200,
@@ -122,7 +124,9 @@ const Apertura = () => {
       montoTotal: parseFloat(montoTotal),
     };
 
+ 
     try {
+      console.log(formData);
       const response = await fetch('http://alansanchez12-001-site1.htempurl.com/api/AperturaCajas', {
         method: 'POST',
         headers: {
@@ -130,20 +134,31 @@ const Apertura = () => {
         },
         body: JSON.stringify(formData),
       });
-
+    
       if (response.ok) {
-        console.log('Apertura de caja enviada con éxito');
+        Swal.fire('Apertura de caja enviada con éxito');
+        SetOpen(true);
+        console.log(response);
       } else {
-        console.error('Error al enviar la apertura de caja');
+        // En caso de error HTTP, mostramos el mensaje del servidor si está disponible.
+        // De lo contrario, mostramos un mensaje genérico.
+       
+        Swal.fire(`Error al enviar la apertura de caja: `);
       }
     } catch (error) {
-      console.error('Error en la solicitud:', error);
+      Swal.fire(`Error en la solicitud: ${error.message}`);
     }
-  };
+    if(OPEN){
+  return <Navigate to={`/MenuEmpleado`} replace />;
+    }
+  
+  }
+    
 
   return (
     <div className="container-fluid contsfondo">
       <Row>
+        <h1 className='text-center text-white'>Apertura de caja</h1>
         <Col xs={12} md={4}>
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="cantB1000">
@@ -249,7 +264,7 @@ const Apertura = () => {
           </Form>
         </Col>
       </Row>
-      <Button variant="success" type="submit" onClick={handleSubmit}>
+      <Button variant="success" type="submit" className='mt-2'onClick={handleSubmit}>
         Guardar
       </Button>
     </div>
