@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import Swal from 'sweetalert2';
 import { Navigate } from 'react-router-dom';
-
+import {useNavigate} from 'react-router-dom'
 const Apertura = () => {
   const [fechaCreacion, setFechaCreacion] = useState('');
   const [idEmpleado, setIdEmpleado] = useState('');
@@ -24,6 +24,7 @@ const Apertura = () => {
   const { userId } = useParams();
   const [idApertura, setUserName] = useState('');
   const [OPEN, SetOpen] = useState(false);
+  const navigate=useNavigate();
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -107,9 +108,9 @@ const Apertura = () => {
     const formData = {
       id:0,
      fechadeCreacion: fechaCreacion,
-      idEmpleado,
+     idEmpleado:1,
       idSucursal,
-      turno:1,
+      turno:"mañana",
       cantB1000,
       cantB500,
       cantB200,
@@ -137,8 +138,11 @@ const Apertura = () => {
     
       if (response.ok) {
         Swal.fire('Apertura de caja enviada con éxito');
+
         SetOpen(true);
+        navigate(`/MenuEmpleado/${idEmpleado}`)
         console.log(response);
+       
       } else {
         // En caso de error HTTP, mostramos el mensaje del servidor si está disponible.
         // De lo contrario, mostramos un mensaje genérico.
@@ -149,12 +153,14 @@ const Apertura = () => {
       Swal.fire(`Error en la solicitud: ${error.message}`);
     }
     if(OPEN){
-  return <Navigate to={`/MenuEmpleado`} replace />;
+      console.log("Hola no sirvo")
+  
+  return <Navigate to={`/MenuEmpleado/${idEmpleado}`}  />;
     }
   
   }
     
-
+  
   return (
     <div className="container-fluid contsfondo">
       <Row>

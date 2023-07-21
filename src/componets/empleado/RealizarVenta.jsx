@@ -1,18 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 import Nav from './Navbar';
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
 
 const MiComponente = () => {
   const [productos, setProductos] = useState([]);
   const [nota, setNota] = useState([]);
   const [total, setTotal] = useState(0);
   const [conFactura, setConFactura] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [descripcionPendiente, setDescripcionPendiente] = useState('');
+  const [sucursales, setSucursales] = useState([]);
+  const [selectedSucursal, setSelectedSucursal] = useState('');
+  const [fechaEntrega, setFechaEntrega] = useState('');
 
   useEffect(() => {
     // Llamada a la API para obtener los productos
     fetch('http://alansanchez12-001-site1.htempurl.com/api/Productoes')
       .then(response => response.json())
       .then(data => setProductos(data))
+      .catch(error => console.log(error));
+  }, []);
+
+  useEffect(() => {
+    // Llamada a la API para obtener las sucursales
+    fetch('http://alansanchez12-001-site1.htempurl.com/api/Sucursals')
+      .then(response => response.json())
+      .then(data => setSucursales(data))
       .catch(error => console.log(error));
   }, []);
 
@@ -60,8 +75,7 @@ const MiComponente = () => {
   };
 
   const handlePedidoDisenoClick = () => {
-    // Lógica para realizar el pedido a diseño
-    // ...
+    setShowModal(true);
   };
 
   const handleRealizarVentaClick = () => {
@@ -80,8 +94,8 @@ const MiComponente = () => {
       id: 0,
       fechaVenta: fechaVenta,
       pagoTotal: total,
-      sucursal: 0,
-      idEmpleado: 0,
+      sucursal: 1,
+      idEmpleado: 1,
       siFactura: conFactura ? 1 : 0,
       imgNota: "",
       articulosVendidos: JSON.stringify(nota.map(item => ({
@@ -110,6 +124,45 @@ const MiComponente = () => {
         Swal.fire({
           icon: 'error',
           title: 'Error al realizar la venta',
+          text: error.message
+        });
+      });
+  };
+
+  const handleModalClose = () => {
+    setShowModal(false);
+  };
+
+  const handleModalSubmit = () => {
+    const pendienteData = {
+      ID: 0,
+      IDSucursal: selectedSucursal,
+      Descripcion: descripcionPendiente,
+      Realizado: 0,
+      fechaIngreso: new Date(),
+      fechaEntrega: fechaEntrega
+    };
+
+    fetch('http://alansanchez12-001-site1.htempurl.com/api/Pendientes', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(pendienteData)
+    })
+      .then(response => response.json())
+      .then(data => {
+        setShowModal(false);
+        Swal.fire({
+          icon: 'success',
+          title: 'Pedido a diseño enviado',
+          text: JSON.stringify(data)
+        });
+      })
+      .catch(error => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error al enviar el pedido a diseño',
           text: error.message
         });
       });
@@ -181,6 +234,55 @@ const MiComponente = () => {
           </div>
         </div>
       </div>
+      <Modal show={showModal} onHide={handleModalClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Pedido a Diseño</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="form-group">
+            <label htmlFor="descripcionPendiente">Descripción del pedido:</label>
+            <textarea
+              id="descripcionPendiente"
+              className="form-control"
+              value={descripcionPendiente}
+              onChange={(e) => setDescripcionPendiente(e.target.value)}
+              rows={4}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="sucursalSelect">Selecciona la sucursal:</label>
+            <select
+              id="sucursalSelect"
+              className="form-control"
+              value={selectedSucursal}
+              onChange={(e) => setSelectedSucursal(e.target.value)}
+            >
+              <option value="">Selecciona una sucursal</option>
+              {sucursales.map(sucursal => (
+                <option key={sucursal.id} value={sucursal.id}>{sucursal.nombreSucursal}</option>
+              ))}
+            </select>
+          </div>
+          <div className="form-group">
+            <label htmlFor="fechaEntrega">Fecha de Entrega:</label>
+            <input
+              id="fechaEntrega"
+              type="date"
+              className="form-control"
+              value={fechaEntrega}
+              onChange={(e) => setFechaEntrega(e.target.value)}
+            />
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleModalClose}>
+            Cancelar
+          </Button>
+          <Button variant="primary" onClick={handleModalSubmit}>
+            Enviar pedido
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };
